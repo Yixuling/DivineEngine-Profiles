@@ -77,7 +77,7 @@ hosts:
 # DNS server settings
 # This section is optional. When not present, the DNS server will be disabled.
 dns:
-  enable: false
+  enable: true
   listen: 0.0.0.0:53
   # ipv6: false # when the false, response to AAAA questions will be empty
 
@@ -145,14 +145,13 @@ dns:
 #
 # https://github.com/Dreamacro/clash/wiki/premium-core-features
 #
-# tun:
-#   enable: true
-#   stack: system # or gvisor
-#   # dns-hijack:
-#   #   - 8.8.8.8:53
-#   #   - tcp://8.8.8.8:53
-#   macOS-auto-route: true # auto set global route
-#   macOS-auto-detect-interface: true # conflict with interface-name
+tun:
+ enable: true
+ stack: system # or gvisor
+ dns-hijack:
+   - 198.18.0.2:53 # 请勿更改
+ auto-route: true
+ auto-detect-interface: true # 自动检测出口网卡
 
 proxies:
 # 支持的协议及加密算法示例请查阅 Clash 项目 README 以使用最新格式：https://github.com/Dreamacro/clash/wiki/configuration
