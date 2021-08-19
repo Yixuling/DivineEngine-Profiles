@@ -146,7 +146,7 @@ dns:
 # https://github.com/Dreamacro/clash/wiki/premium-core-features
 #
 tun:
- enable: true
+ enable: false
  stack: system # or gvisor
  dns-hijack:
    - 198.18.0.2:53 # 请勿更改
@@ -157,7 +157,7 @@ tun:
 proxy-providers:
   NexitallyList: #「Nexitally」订阅
     type: http
-    url: "https://suo.yt/QJwlFyG" # 放机场订阅链接
+    url: "https://suo.yt/Ww8DYuS" # 放机场订阅链接
     interval: 3600
     path: ./Proxy/List.yaml # 注意此处文件名不可相同
     health-check:
