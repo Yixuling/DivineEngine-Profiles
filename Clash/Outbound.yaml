@@ -153,96 +153,17 @@ tun:
  auto-route: true
  auto-detect-interface: true # 自动检测出口网卡
 
-proxies:
-# 支持的协议及加密算法示例请查阅 Clash 项目 README 以使用最新格式：https://github.com/Dreamacro/clash/wiki/configuration
-
-  # Shadowsocks(Websocket + TLS)
-  - name: "1"
-    type: ss
-    server: server
-    port: 443
-    cipher: chacha20-ietf-poly1305
-    password: "password"
-    plugin: v2ray-plugin
-    plugin-opts:
-      mode: websocket # no QUIC now
-      tls: true # wss
-      # skip-cert-verify: true
-      # host: bing.com
-      path: "/s"
-      # mux: true
-      # headers:
-      #   custom: value
-
-  # VMess(Websocket + TLS)
-  - name: "2"
-    type: vmess
-    server: v2ray.cool
-    port: 443
-    uuid: a3482e88-686a-4a58-8126-99c9df64b7bf
-    alterId: 32
-    cipher: auto
-    # udp: true
-    tls: true
-    # skip-cert-verify: true
-    network: ws
-    ws-path: /v
-    # ws-headers:
-    #   Host: v2ray.com
-
-  # Trojan
-  - name: "3"
-    type: trojan
-    server: server
-    port: 443
-    password: yourpsk
-    # udp: true
-    # sni: example.com # aka server name
-    # alpn:
-    #   - h2
-    #   - http/1.1
-    # skip-cert-verify: true
-
 # 服务器节点订阅
 proxy-providers:
-  # name: # Provider 名称
-  #   type: http # http 或 file
-  #   path: # 文件路径
-  #   url: # 只有当类型为 HTTP 时才可用，您不需要在本地空间中创建新文件。
-  #   interval: # 自动更新间隔，仅在类型为 HTTP 时可用
-  #   health-check: # 健康检查选项从此处开始
-  #     enable:
-  #     url: 
-  #     interval: 
-
-  #
-  # 「url」参数填写订阅链接
-  #
-  # 订阅链接可以使用 API 进行转换，如：https://dove.589669.xyz/web
-  #
-  #
-
-  # 此处只是订阅示例，如果没有订阅链接的使用需求，此处及 proxy-groups 的相关内容可删除
-
-  DuckDuckGoList: #「冲鸭机场」订阅
+  NexitallyList: #「Nexitally」订阅
     type: http
-    url: "https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/ProxyList/List.yaml" # 放机场订阅链接
+    url: "https://suo.yt/QJwlFyG" # 放机场订阅链接
     interval: 3600
     path: ./Proxy/List.yaml # 注意此处文件名不可相同
     health-check:
       enable: true
       interval: 600
       url: http://www.gstatic.com/generate_204
-
-  # DuckDuckGoUS: #「冲鸭机场」订阅美国地区节点
-  #   type: http
-  #   url: "https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/ProxyList/US.yaml" # 放机场订阅链接
-  #   interval: 3600
-  #   path: ./Proxy/US.yaml # 注意此处文件名不可相同
-  #   health-check:
-  #     enable: true
-  #     interval: 600
-  #     url: http://www.gstatic.com/generate_204
 
 proxy-groups:
 # 策略组示例请查阅 Clash 项目 README 以使用最新格式：https://github.com/Dreamacro/clash/wiki/configuration
@@ -273,10 +194,10 @@ proxy-groups:
   # 但如果订阅节点很多选起来就很麻烦，不如先嵌套一个策略组进行手动或自动的选择。
 
   # 手动选择订阅节点
-  - name: "DuckDuckGo"
+  - name: "Nexitally"
     type: select # 亦可使用 fallback 或 load-balance
     use: # 注意此处是「use」
-      - DuckDuckGoList # 这是上面「proxy-providers」的名称
+      - NexitallyList # 这是上面「proxy-providers」的名称
 
   # - name: "US"
   #   type: select # 亦可使用 fallback 或 load-balance
@@ -284,24 +205,24 @@ proxy-groups:
   #     - DuckDuckGoUS # 这是上面「proxy-providers」的名称
 
   # Fallback 比较实用的策略组类型，用于测试服务器节点的可用性，当第一个节点不可用时切换到第二个，以此类推。
-  - name: "Fallback"
-    type: fallback
-    proxies:
-      - 1
-      - 2
-      - 3
-    url: 'http://www.gstatic.com/generate_204'
-    interval: 300
+#  - name: "Fallback"
+#    type: fallback
+#    proxies:
+#      - 1
+#      - 2
+#      - 3
+#    url: 'http://www.gstatic.com/generate_204'
+#    interval: 300
 
   # 代理节点选择
   - name: "PROXY"
     type: select
     proxies:
-      - Fallback
-      - 1
-      - 2
-      - 3
-      - DuckDuckGo # 嵌套使用订阅节点策略组
+#      - Fallback
+#      - 1
+#      - 2
+#      - 3
+      - Nexitally # 嵌套使用订阅节点策略组
 
   # 白名单模式 PROXY, 黑名单模式 DIRECT, 不知道别动
   - name: "MATCH"
@@ -315,10 +236,10 @@ proxy-groups:
     type: select
     proxies:
       - PROXY
-      - 1
-      - 2
-      - 3
-      # - US
+#      - 1
+#      - 2
+#      - 3
+#      # - US
 
   # 中国流媒体服务（面向海外版本）
   # 用于观看部分国内流媒体面向港澳台的地区的限定内容，此处应放港澳台节点，如果没有此需求可删除此处策略组及相关规则
@@ -326,7 +247,7 @@ proxy-groups:
     type: select
     proxies:
       - DIRECT
-      - 2
+#      - 2
 
 # 关于 Rule Provider 请查阅：https://lancellc.gitbook.io/clash/clash-config-file/rule-provider
 
